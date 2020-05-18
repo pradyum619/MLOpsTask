@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Fine Tuning</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css.css">
+    </head>
+    <body>
+        <button class="collapsible">Introduction</button>
+        <div class="content">
+          <h4>We are using MobileNet pre architectured
+            </h4>
+            <img src="images/intro00.png"><br><br>
+            <p>Every ML or DL model go through a specific step by step process , so the following are the steps I am using to train Model by my faces dataset</p><br><br>
+            <p>If you are already a part of MLOps training under Vimal Daga Sir then you will catch the flow. ;) </p> <br><br>
+
+            <p>Go through the steps </p>
+        </div>
+        
+        <button class="collapsible">Collecting Data of faces</button>
+        <div class="content">
+            <h4>Dataset is the base for any Model</h4>
+            <h4>Create three in both train as well as test directory directories like shown below</h4>
+            <code>faces/train/n00</code><br>
+            <code>faces/train/n01</code><br>
+            <code>faces/train/n02</code><br>
+            <br>
+            <code>faces/validation/n00</code><br>
+            <code>faces/validation/n01</code><br>
+            <code>faces/validation/n02</code><br>
+
+           <h4>For Collecting data i have used this script which launches camera and start clicking photos and crop faces and stores in the provided folders</h4>
+           
+           <img src="images/cropFace.png"><br>
+        </div>
+        
+
+        <button class="collapsible">Import Mobilenet</button>
+        <div class="content">
+           <h4>Importing Mobilenet without the output layer</h4><br>
+           <img src="images/01.png">
+           <code>include_top=False</code><br>
+           <p>this removes the output layer and includes all other layers</p>
+           <code>for layer in MobileNet.layers:
+            layer.trainable = False</code>
+            <p>this for loop freezes all the layers</p>
+        </div>
+
+        <button class="collapsible">Adding Layers</button>
+        <div class="content">
+        
+           <h4>The following function is used for creating additional layers which will be attached to Mobilenet</h4>
+           <img src="images/02.png"><br><br>
+           <p>Notice the last layer softmax, that will be our Output layer</p>
+           
+        </div>
+        
+        <button class="collapsible">Creating new model mixed with added layers</button>
+        <div class="content">
+            <h4>Here by using our lw function and Model() function we have done this step</h4>
+            <img src="images/03.png"><br>
+            
+        </div>
+        
+        <button class="collapsible">Training Model</button>
+        <div class="content">
+            <h4>I am using RMS optimizer</h4><br>
+            <h4>I am using 5 epochs</h4><br>
+            <h4>I am also using early check for avoiding overfitting</h4><br>
+            <img src="images/05.png"><br>
+          
+        </div>
+        
+
+        <button class="collapsible">Load Model</button>
+        <div class="content">
+            <h4>Now that model has been trained lets load it for testing</h4><br>
+            
+            <img src="images/06.png"><br>
+          
+        </div>
+        
+
+        <button class="collapsible">Test Model</button>
+        <div class="content">
+            <h4>The testing is just simple</h4><br>
+            <h5>correct answer is printed on console whereas prediction is printed on image shown</h5>
+            <p>the code is pretty long so dont go for image look for code file i have uploaded on this repo</p>
+            
+            <img src="images/07.png"><br>
+            
+        </div>
+        
+        <button class="collapsible">Conclusion</button>
+        <div class="content">
+          <h4>If we check the results, they are giving more than 80% accuracy</h4><br>
+          <h4>One advice make sure you have face data in good format i mean less data or bad quality picture results in bad accuracy</h4><br>
+          <h4>If you want you can use some face datasets from Kaggle ;)</h4>
+          <h4><a href="https://github.com/pradyum619/MLOpsTask">Click here for code files</a></h4>
+          <img src="images/08.png">
+          <br><br>
+
+        </div>
+        
+        
+        
+        
+        <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+    </body>
+</html>
